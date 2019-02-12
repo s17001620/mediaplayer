@@ -64,6 +64,7 @@ public class ResultListFactory {
         });
         descriptionPane.addRow(0, new Label(breakStringForVideoLabel(video.getTitle() + " " + video.getPublishDate())));
         descriptionPane.addRow(1, new Label(breakStringForVideoLabel(video.getDescription())));
+        descriptionPane.addRow(2,new Label("Category:"), new Label(breakStringForVideoLabel(video.getCategoryAsString())));
         descriptionPane.addRow(3, playbutton);
         singleResultPane.setHgap(5);  
         singleResultPane.setVgap(5); 

@@ -52,6 +52,6 @@ public class MediaPlayerUIFactory {
     }
     
         public void rebuildPlayerPane(YouTubeVideo video) {
-        playerPaneFactory.buildTitlePane(this.controller, video);
+            playerPaneFactory.buildTitlePane(this.controller, video);
     }
 }

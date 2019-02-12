@@ -46,6 +46,7 @@ public class PlayerPaneFactory {
         titlepane.setId("titlepane");
         Label title = new Label("no video selected");
         title.setId("title");
+        titlepane.setPrefHeight(80);
         titlepane.addRow(0, title);
         mediaPane.setPadding(new Insets(5, 5, 5, 5));  
         mediaPane.addRow(0, buildSearchBarPane(controller));
@@ -61,6 +62,7 @@ public class PlayerPaneFactory {
         Label description = new Label(wrap(video.getDescription(),85));
         titlepane.addRow(0, title, new Label(""));
         titlepane.addRow(1, description, new Label(""));
+        titlepane.addRow(2, description, new Label(video.getCategoryAsString()));
     }
     
 }

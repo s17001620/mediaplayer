@@ -6,6 +6,8 @@ import com.google.api.client.util.DateTime;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
+import com.google.api.services.youtube.model.VideoListResponse;
+import com.google.api.services.youtube.model.Video;
 import edu.glyndwr.mediaplayer.backend.mediaservice.integration.configuration.MediaPlayerApiConfiguration;
 import edu.glyndwr.mediaplayer.backend.mediaservice.integration.models.YouTubeVideo;
 import java.io.IOException;
@@ -30,8 +32,10 @@ public class YouTubeService {
     private MediaPlayerApiConfiguration apiConfiguration;
     private static final long MAX_SEARCH_RESULTS = 15;
     private static final String BASE_URL = "https://www.youtube.com/embed?v=";
+    
     private static final String VIDEO_TYPE = "video";
     private static final String VIDEO_SEARCH_LIST = "id,snippet";
+    private static final String VIDEO_CATEGORY_SEARCH_LIST = "snippet,id";
     private static final String VIDEO_SEARCH_FIELDS = "items(id/kind,id/videoId,snippet/title,snippet/description,snippet/publishedAt,snippet/thumbnails/default/url)";
     private static final String VIDEO_SEARCH_DATE_FORMAT = "MMM dd, yyyy";
     private static final String VIDEO_APPLICATION_NAME = "mediaplayer"; 
@@ -52,6 +56,20 @@ public class YouTubeService {
             if (searchResultList != null) {
                 searchResultList.stream().map((result) -> {
                     YouTubeVideo video = new YouTubeVideo();
+                    YouTube.Videos.List videos = null;
+                    try {
+                        videos = youtube.videos().list(VIDEO_CATEGORY_SEARCH_LIST).setId(result.getId().getVideoId());
+                        VideoListResponse listResponse = videos.execute();
+                          List<Video> videoList = listResponse.getItems();                  
+                    if (videoList != null) {
+                        
+                        Video v = videoList.get(0);
+                     video.setCategoryId(v.getSnippet().getCategoryId());
+                    }
+                    } catch (IOException ex) {
+                        Logger.getLogger(YouTubeService.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                     video.setTitle(result.getSnippet().getTitle());
                     video.setUrl(buildVideoUrl(result.getId().getVideoId()));
                     video.setThumbnailUrl(result.getSnippet().getThumbnails().getDefault().getUrl());
