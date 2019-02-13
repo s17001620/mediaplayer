@@ -5,6 +5,7 @@ import edu.glyndwr.mediaplayer.backend.mediaservice.integration.configuration.Me
 import edu.glyndwr.mediaplayer.backend.mediaservice.integration.models.YouTubeSearchQuery;
 import edu.glyndwr.mediaplayer.backend.mediaservice.integration.models.YouTubeVideo;
 import edu.glyndwr.mediaplayer.backend.mediaservice.integration.service.YouTubeService;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,7 +35,8 @@ public class YouTubeIntegrationController {
     }
     
     public List<YouTubeVideo> loadVideosbySearchQuery(){
-        List<YouTubeVideo> videos = youtubeService.fetchVideosByQuery(youtubeSearchCriteria.getQueryTerm());
+        List<YouTubeVideo> videos = new ArrayList<>();
+        videos.addAll(youtubeService.fetchVideosByQuery(youtubeSearchCriteria.getQueryTerm()));
         return videos;
     }
     

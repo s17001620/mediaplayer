@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class YouTubeVideo {
-
+    private String id;
     private String categoryId;
     private String title;
     private String url;
@@ -19,6 +19,8 @@ public class YouTubeVideo {
     private String publishDate;
     private String description;
     private String category;
+    private final static String EMBED_PREFIX = "<iframe width=\"640\" height=\"360\" src=\"https://www.youtube-nocookie.com/embed/";
+    private final static String EMBED_SUFFIX = "\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>";
 
     private HashMap<String, String> categories = new HashMap<>();
 
@@ -32,6 +34,10 @@ public class YouTubeVideo {
             result = "Other/Diverse";
         }
         return result;
+    }
+    
+    public String getEmbedCode(){
+        return EMBED_PREFIX+this.getId()+EMBED_SUFFIX;
     }
     
     private void initializeCategories() {

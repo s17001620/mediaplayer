@@ -1,13 +1,16 @@
-
 package edu.glyndwr.mediaplayer.frontend.factories;
 
 import edu.glyndwr.mediaplayer.backend.mediaservice.integration.models.YouTubeVideo;
 import edu.glyndwr.mediaplayer.frontend.controller.MediaplayerFrontendController;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
+import javax.swing.JPanel;
 import static org.apache.commons.lang3.text.WordUtils.wrap;
 import org.springframework.stereotype.Component;
 
@@ -17,24 +20,23 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class PlayerPaneFactory {
-    
-    private GridPane buildSearchBarPane(MediaplayerFrontendController controller){
+
+    private GridPane buildSearchBarPane(MediaplayerFrontendController controller) {
         controller.getSearchButton().setText("Search");
         controller.getSearchButton().setOnAction((ActionEvent e) -> {
-          if(!controller.getSearchField().getText().isEmpty() && !controller.getSearchField().getText().isBlank()){
-             controller.loadVideos(controller.getSearchField().getText().trim());  
-          }
-        });     
-        
+            if (!controller.getSearchField().getText().isEmpty() && !controller.getSearchField().getText().isBlank()) {
+                controller.loadVideos(controller.getSearchField().getText().trim());
+            }
+        });
+
         GridPane mediaPane = new GridPane();
-        mediaPane.setPadding(new Insets(5, 5, 5, 5));  
+        mediaPane.setPadding(new Insets(5, 5, 5, 5));
         mediaPane.setHgap(5.0);
         mediaPane.setVgap(5.0);
         mediaPane.addRow(0, controller.getSearchField(), controller.getSearchButton());
         return mediaPane;
     }
-    
-    
+
     public GridPane buildPlayerPane(MediaplayerFrontendController controller, ScrollPane resultpane){
         GridPane mediaPane = new GridPane();
         mediaPane.setPadding(new Insets(5, 5, 5, 5));  
@@ -54,15 +56,18 @@ public class PlayerPaneFactory {
         mediaPane.addRow(2, titlepane);
         return mediaPane;
     }
+
+
     
-        public void buildTitlePane(MediaplayerFrontendController controller,YouTubeVideo video){
+    public void buildTitlePane(MediaplayerFrontendController controller, YouTubeVideo video) {
         GridPane titlepane = (GridPane) controller.getPrimaryStage().getScene().lookup("#titlepane");
         titlepane.getChildren().clear();
-        Label title = new Label(wrap(video.getTitle(),85));
-        Label description = new Label(wrap(video.getDescription(),85));
+        Label title = new Label(wrap(video.getTitle(), 85));
+        Label description = new Label(wrap(video.getDescription(), 85));
+        Label category = new Label(wrap(video.getCategoryAsString(), 85));
         titlepane.addRow(0, title, new Label(""));
         titlepane.addRow(1, description, new Label(""));
-        titlepane.addRow(2, description, new Label(video.getCategoryAsString()));
+        titlepane.addRow(2,new Label("Category: "), category );
     }
-    
+
 }

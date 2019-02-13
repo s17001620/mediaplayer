@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Service;
  *
  * @author Alexander Bruckbauer s17001620
  */
+@Log
 @Service
 public class YouTubeService {
 
@@ -35,7 +37,7 @@ public class YouTubeService {
     
     private static final String VIDEO_TYPE = "video";
     private static final String VIDEO_SEARCH_LIST = "id,snippet";
-    private static final String VIDEO_CATEGORY_SEARCH_LIST = "snippet,id";
+    private static final String VIDEO_CATEGORY_SEARCH_LIST = "snippet";
     private static final String VIDEO_SEARCH_FIELDS = "items(id/kind,id/videoId,snippet/title,snippet/description,snippet/publishedAt,snippet/thumbnails/default/url)";
     private static final String VIDEO_SEARCH_DATE_FORMAT = "MMM dd, yyyy";
     private static final String VIDEO_APPLICATION_NAME = "mediaplayer"; 
@@ -44,6 +46,7 @@ public class YouTubeService {
     public List<YouTubeVideo> fetchVideosByQuery(String queryTerm) {
         YouTube youtube = getYouTube();
         try {
+            youtube.search().list(VIDEO_SEARCH_LIST).clear();
             YouTube.Search.List search = youtube.search().list(VIDEO_SEARCH_LIST);
             search.setKey(apiConfiguration.getKey());
             search.setQ(queryTerm);
@@ -51,14 +54,17 @@ public class YouTubeService {
             search.setFields(VIDEO_SEARCH_FIELDS);
             search.setMaxResults(MAX_SEARCH_RESULTS);
             DateFormat df = new SimpleDateFormat(VIDEO_SEARCH_DATE_FORMAT);
+            log.info(search.buildHttpRequest().getUrl().build().toString());
             SearchListResponse searchResponse = search.execute();
-            List<SearchResult> searchResultList = searchResponse.getItems();
-            if (searchResultList != null) {
+            List<SearchResult> searchResultList = new ArrayList<>();
+            searchResultList.addAll(searchResponse.getItems());
                 searchResultList.stream().map((result) -> {
                     YouTubeVideo video = new YouTubeVideo();
+                    video.setId(result.getId().getVideoId());
                     YouTube.Videos.List videos = null;
                     try {
-                        videos = youtube.videos().list(VIDEO_CATEGORY_SEARCH_LIST).setId(result.getId().getVideoId());
+                        videos = youtube.videos().list(VIDEO_CATEGORY_SEARCH_LIST).setPart("snippet").setId(result.getId().getVideoId()).setKey(apiConfiguration.getKey());
+                         log.info(videos.buildHttpRequest().getUrl().build().toString());
                         VideoListResponse listResponse = videos.execute();
                           List<Video> videoList = listResponse.getItems();                  
                     if (videoList != null) {
@@ -82,7 +88,7 @@ public class YouTubeService {
                 }).forEachOrdered((video) -> {
                     videos.add(video);
                 });
-            }
+            
 
         } catch (IOException ex) {
             Logger.getLogger(YouTubeService.class.getName()).log(Level.SEVERE, null, ex);

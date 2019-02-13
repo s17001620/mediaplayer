@@ -5,6 +5,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
+import org.springframework.boot.WebApplicationType;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -31,7 +33,9 @@ public class MediaplayerApplication extends Application{
     
     @Override
     public void init() throws Exception {
-        SpringApplicationBuilder builder = new SpringApplicationBuilder(MediaplayerApplication.class);
+        SpringApplicationBuilder builder = new SpringApplicationBuilder(MediaplayerApplication.class).web(WebApplicationType.NONE)
+                .headless(false)
+                .bannerMode(Banner.Mode.OFF);         
         context = builder.run(getParameters().getRaw().toArray(new String[0]));
     }
     

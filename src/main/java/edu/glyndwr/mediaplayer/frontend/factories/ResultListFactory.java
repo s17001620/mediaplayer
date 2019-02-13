@@ -1,21 +1,16 @@
 package edu.glyndwr.mediaplayer.frontend.factories;
 
-import com.google.api.services.youtube.YouTube;
 import edu.glyndwr.mediaplayer.backend.mediaservice.integration.models.YouTubeVideo;
 import edu.glyndwr.mediaplayer.frontend.controller.MediaplayerFrontendController;
 import javafx.scene.control.ScrollPane;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import static org.apache.commons.lang3.text.WordUtils.wrap;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -64,19 +59,21 @@ public class ResultListFactory {
         });
         descriptionPane.addRow(0, new Label(breakStringForVideoLabel(video.getTitle() + " " + video.getPublishDate())));
         descriptionPane.addRow(1, new Label(breakStringForVideoLabel(video.getDescription())));
-        descriptionPane.addRow(2,new Label("Category:"), new Label(breakStringForVideoLabel(video.getCategoryAsString())));
-        descriptionPane.addRow(3, playbutton);
+        GridPane playpane = new GridPane();
+        playpane.addRow(0,playbutton, new Label(" Category: "), new Label(breakStringForVideoLabel(video.getCategoryAsString())));
+        descriptionPane.addRow(2, playpane);
+        descriptionPane.setPrefWidth(500);
         singleResultPane.setHgap(5);  
         singleResultPane.setVgap(5); 
         singleResultPane.setPadding(new Insets(5, 5, 5, 5));  
         singleResultPane.addRow(0, imagePane, descriptionPane);
+        singleResultPane.setPrefWidth(600);
         return singleResultPane;
     }
 
     public void rebuildResultPane() {
 
         ScrollPane resultscroll = (ScrollPane) controller.getPrimaryStage().getScene().lookup("#resultScroll");
-
         GridPane pane = new GridPane();
         pane.setHgap(5);  
         pane.setVgap(5); 
@@ -90,6 +87,6 @@ public class ResultListFactory {
     }
 
     public String breakStringForVideoLabel(String text) {
-        return wrap(text, 85);
+        return wrap(text, 90);
     }
 }
