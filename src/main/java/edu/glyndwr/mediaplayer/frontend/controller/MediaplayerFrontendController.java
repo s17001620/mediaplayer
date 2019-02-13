@@ -6,6 +6,7 @@ import edu.glyndwr.mediaplayer.backend.mediaservice.integration.models.YouTubeVi
 import edu.glyndwr.mediaplayer.frontend.factories.MediaPlayerUIFactory;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -48,18 +49,20 @@ public class MediaplayerFrontendController {
     public void initializeStage(Stage primaryStage) {
         initializeFields(primaryStage);
         primaryStage = uiFactory.buildUI(this);
-        InputStream icon = getClass().getResourceAsStream("icon.png");
-        if (null != icon) {
-            Image imageIcon = new Image(icon);
-            if (imageIcon != null) {
-                primaryStage.getIcons().add(imageIcon);
+               InputStream icon = null;
+        try {
+            icon = new DataInputStream(new FileInputStream(new ClassPathResource("icon.png").getFile()));
+            
+            if(null!=icon){
+                Image imageIcon = new Image(icon);
+                primaryStage.getIcons().add(imageIcon); 
             }else{
-                log.info("imageIcon is null! no Icon!");
+                log.info("icon inputstream null");
             }
-        } else {
-            log.info("Icon inputStream is null! no Icon!");
-        }
-
+           
+        } catch (IOException ex) {
+                Logger.getLogger(MediaplayerFrontendController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         primaryStage.show();
 
     }
