@@ -2,15 +2,11 @@ package edu.glyndwr.mediaplayer.frontend.factories;
 
 import edu.glyndwr.mediaplayer.backend.mediaservice.integration.models.YouTubeVideo;
 import edu.glyndwr.mediaplayer.frontend.controller.MediaplayerFrontendController;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
-import javax.swing.JPanel;
 import static org.apache.commons.lang3.text.WordUtils.wrap;
 import org.springframework.stereotype.Component;
 
