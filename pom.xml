@@ -12,7 +12,12 @@
     <artifactId>mediaplayer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>mediaplayer</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Task 2: Javaflix
+        This task requires the development of a program to allow users
+        to find and watch multimedia content. The app must allow
+        searching for content, show categories of videos and contain a
+        video player. Consideration should be given to the design
+        elements to ensure it is easy to use.</description>
 
     <properties>
         <java.version>11</java.version>
