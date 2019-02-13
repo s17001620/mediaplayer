@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="weatherapp">
+  <ClassDiagramComponents>
+    <Class name="WeatherServiceController" package="edu.glyndwr.weatherapp.backend.weatherservice.controller" visibility="public" xPosition="1345.0" yPosition="1021.0">
+      <Fields>
+        <Field name="openWeatherMapService" type="OpenWeatherMapService" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getWeatherToday" returnType="WeatherToday" visibility="public">
+          <Argument type="String" name="country"/>
+          <Argument type="String" name="city"/>
+        </Method>
+        <Method name="getWeatherForecast" returnType="Forecast" visibility="public">
+          <Argument type="String" name="country"/>
+          <Argument type="String" name="city"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="WeatherAppApiConfiguration" package="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.configuration" visibility="public" xPosition="1022.0" yPosition="280.0">
+      <Fields>
+        <Field name="key" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="AbstractWeatherData" package="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration" visibility="public" isAbstract="true" xPosition="619.0" yPosition="33.0">
+      <Fields>
+        <Field name="CITY_NOT_FOUND" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="NOT_AVAILABLE" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="WEATHERDATA_IMAGE_PATH" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="WEATHERDATA_IMAGE_FILETYPE" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="WEATHERDATA_DATE_FORMAT" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="PRESSURE_UNIT" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="HUMIDITY_UNIT" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="WINDSPEED_UNIT" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="TEMPERATURE_KELVIN_UNIT" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="TEMPERATURE_CELSIUS_UNIT" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="JSON_DATE_TIME" type="String" visibility="protected" isStatic="true" isFinal="true"/>
+        <Field name="JSON_WEATHER" type="String" visibility="protected" isStatic="true" isFinal="true"/>
+        <Field name="JSON_MAIN" type="String" visibility="protected" isStatic="true" isFinal="true"/>
+        <Field name="JSON_WIND" type="String" visibility="protected" isStatic="true" isFinal="true"/>
+        <Field name="dateTime" type="long" visibility="protected" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="JSONObject" name="json"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getDateTime" returnType="long" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Forecast" package="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration" visibility="public" xPosition="804.0" yPosition="761.0">
+      <Fields>
+        <Field name="name" type="String" visibility="private"/>
+        <Field name="entries" type="List&lt;WeatherData&gt;" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getName" returnType="String" visibility="public"/>
+        <Method name="setName" returnType="void" visibility="public">
+          <Argument type="String" name="name"/>
+        </Method>
+        <Method name="getEntries" returnType="List&lt;WeatherData&gt;" visibility="public"/>
+        <Method name="setEntries" returnType="void" visibility="public">
+          <Argument type="List&lt;WeatherData&gt;" name="entries"/>
+        </Method>
+        <Method name="setCity" returnType="void" visibility="public">
+          <Argument type="Map&lt;String, Object&gt;" name="city"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="OpenWeatherMapService" package="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration" visibility="public" xPosition="1291.0" yPosition="550.0">
+      <Fields>
+        <Field name="WEATHER_URL" type="String" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="FORECAST_URL" type="String" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="logger" type="Logger" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="restTemplate" type="RestTemplate" visibility="private" isFinal="true"/>
+        <Field name="apiKey" type="String" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="RestTemplateBuilder" name="restTemplateBuilder"/>
+          <Argument type="WeatherAppApiConfiguration" name="properties"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getWeatherToday" returnType="WeatherToday" visibility="public">
+          <Argument type="String" name="country"/>
+          <Argument type="String" name="city"/>
+        </Method>
+        <Method name="getForecast" returnType="Forecast" visibility="public">
+          <Argument type="String" name="country"/>
+          <Argument type="String" name="city"/>
+        </Method>
+        <Method name="invoke" returnType="T" visibility="private">
+          <Argument type="URI" name="url"/>
+          <Argument type="Class&lt;T&gt;" name="responseType"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="WeatherData" package="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration" visibility="public" xPosition="79.0" yPosition="229.0">
+      <Fields>
+        <Field name="temp" type="Double" visibility="private"/>
+        <Field name="tempMin" type="Double" visibility="private"/>
+        <Field name="tempMax" type="Double" visibility="private"/>
+        <Field name="pressure" type="Double" visibility="private"/>
+        <Field name="humidity" type="Double" visibility="private"/>
+        <Field name="speed" type="Double" visibility="private"/>
+        <Field name="deg" type="Double" visibility="private"/>
+        <Field name="gust" type="Double" visibility="private"/>
+        <Field name="varBeg" type="Integer" visibility="private"/>
+        <Field name="varEnd" type="Integer" visibility="private"/>
+        <Field name="mainWeather" type="String" visibility="private"/>
+        <Field name="mainWeatherDescription" type="String" visibility="private"/>
+        <Field name="timestamp" type="Instant" visibility="private"/>
+        <Field name="weatherId" type="Integer" visibility="private"/>
+        <Field name="weatherIcon" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="JSONObject" name="json"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getTimestamp" returnType="Instant" visibility="public"/>
+        <Method name="setTimestamp" returnType="void" visibility="public">
+          <Argument type="long" name="unixTime"/>
+        </Method>
+        <Method name="setMain" returnType="void" visibility="public">
+          <Argument type="Map&lt;String, Object&gt;" name="main"/>
+        </Method>
+        <Method name="setWind" returnType="void" visibility="public">
+          <Argument type="Map&lt;String, Object&gt;" name="wind"/>
+        </Method>
+        <Method name="setWeather" returnType="void" visibility="public">
+          <Argument type="List&lt;Map&lt;String, Object&gt;&gt;" name="weatherEntries"/>
+        </Method>
+        <Method name="parseNumericValueAsDouble" returnType="Double" visibility="private">
+          <Argument type="Object" name="numVal"/>
+        </Method>
+        <Method name="parseNumericValueAsInteger" returnType="Integer" visibility="private">
+          <Argument type="Object" name="numVal"/>
+        </Method>
+        <Method name="convertKelvinToCelsius" returnType="Double" visibility="public">
+          <Argument type="Double" name="kelvinTemperature"/>
+        </Method>
+        <Method name="hasTemp" returnType="boolean" visibility="public"/>
+        <Method name="hasTempMin" returnType="boolean" visibility="public"/>
+        <Method name="hasTempMax" returnType="boolean" visibility="public"/>
+        <Method name="hasPressure" returnType="boolean" visibility="public"/>
+        <Method name="hasHumidity" returnType="boolean" visibility="public"/>
+        <Method name="hasSpeed" returnType="boolean" visibility="public"/>
+        <Method name="hasDeg" returnType="boolean" visibility="public"/>
+        <Method name="hasGust" returnType="boolean" visibility="public"/>
+        <Method name="hasVarBeg" returnType="boolean" visibility="public"/>
+        <Method name="hasVarEnd" returnType="boolean" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="WeatherToday" package="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration" visibility="public" xPosition="843.0" yPosition="533.0">
+      <Fields>
+        <Field name="name" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="JSONObject" name="json"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="WeatherAppFrontendConfiguration" package="edu.glyndwr.weatherapp.frontend.configuration" visibility="public" xPosition="1927.0" yPosition="1021.0">
+      <Fields>
+        <Field name="citiesStrings" type="List&lt;String&gt;" visibility="private"/>
+        <Field name="cities" type="ArrayList&lt;City&gt;" visibility="private"/>
+        <Field name="countries" type="ArrayList&lt;String&gt;" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="init" returnType="void" visibility="public"/>
+        <Method name="distinctByKey" returnType="Predicate&lt;T&gt;" visibility="private">
+          <Argument type="Function&lt;? super T, ?&gt;" name="keyExtractor"/>
+        </Method>
+        <Method name="getCitiesForCountry" returnType="ArrayList&lt;City&gt;" visibility="public">
+          <Argument type="String" name="country"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="WeatherAppFrontendController" package="edu.glyndwr.weatherapp.frontend.controller" visibility="public" xPosition="1385.0" yPosition="1306.0">
+      <Fields>
+        <Field name="weatherServiceController" type="WeatherServiceController" visibility="private"/>
+        <Field name="weatherServiceFrontendUIFactory" type="WeatherServiceFrontendUIFactory" visibility="private"/>
+        <Field name="weatherAppFrontendConfiguration" type="WeatherAppFrontendConfiguration" visibility="private"/>
+        <Field name="countryBox" type="ComboBox&lt;String&gt;" visibility="private"/>
+        <Field name="cityBox" type="ComboBox&lt;City&gt;" visibility="private"/>
+        <Field name="resultPane" type="GridPane" visibility="private"/>
+        <Field name="primaryStage" type="Stage" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="initializeStage" returnType="void" visibility="public">
+          <Argument type="Stage" name="primaryStage"/>
+        </Method>
+        <Method name="loadWeather" returnType="void" visibility="public">
+          <Argument type="City" name="city"/>
+        </Method>
+        <Method name="initializeFields" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="CitySelectViewFactory" package="edu.glyndwr.weatherapp.frontend.factories" visibility="public" xPosition="779.0" yPosition="1579.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="buildWeatherUserControlls" returnType="GridPane" visibility="public">
+          <Argument type="WeatherAppFrontendController" name="controller"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="WeatherDataDisplayViewFactory" package="edu.glyndwr.weatherapp.frontend.factories" visibility="public" xPosition="79.0" yPosition="1579.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="generateWeatherDataPane" returnType="GridPane" visibility="public">
+          <Argument type="WeatherData" name="weatherdata"/>
+          <Argument type="Boolean" name="isForecast"/>
+          <Argument type="String" name="background"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="WeatherServiceFrontendUIFactory" package="edu.glyndwr.weatherapp.frontend.factories" visibility="public" xPosition="485.0" yPosition="1144.0">
+      <Fields>
+        <Field name="citySelectViewFactory" type="CitySelectViewFactory" visibility="private"/>
+        <Field name="weatherDataDisplayViewFactory" type="WeatherDataDisplayViewFactory" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="buildFrontendUI" returnType="Stage" visibility="public">
+          <Argument type="WeatherAppFrontendController" name="controller"/>
+          <Argument type="Stage" name="stage"/>
+        </Method>
+        <Method name="buildWeatherDataResultPaneForToday" returnType="GridPane" visibility="public">
+          <Argument type="WeatherData" name="weatherData"/>
+        </Method>
+        <Method name="buildWeatherDataResultPaneForForcast" returnType="GridPane" visibility="public">
+          <Argument type="Forecast" name="forecast"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="City" package="edu.glyndwr.weatherapp.frontend.model" visibility="public" xPosition="2065.0" yPosition="1541.0">
+      <Fields>
+        <Field name="country" type="String" visibility="private"/>
+        <Field name="city" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="city"/>
+          <Argument type="String" name="country"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="WeatherappApplication" package="edu.glyndwr.weatherapp" visibility="public" xPosition="1405.0" yPosition="1681.0">
+      <Fields>
+        <Field name="context" type="ConfigurableApplicationContext" visibility="private"/>
+        <Field name="weatherAppFrontendController" type="WeatherAppFrontendController" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+        <Method name="start" returnType="void" visibility="public">
+          <Argument type="Stage" name="primaryStage"/>
+        </Method>
+        <Method name="init" returnType="void" visibility="public"/>
+        <Method name="stop" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <IsRelation name="is" source="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.WeatherToday" target="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.WeatherData"/>
+    <HasRelation name="weatherAppFrontendConfiguration" source="edu.glyndwr.weatherapp.frontend.controller.WeatherAppFrontendController" target="edu.glyndwr.weatherapp.frontend.configuration.WeatherAppFrontendConfiguration" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.OpenWeatherMapService" target="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.Forecast" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cities" source="edu.glyndwr.weatherapp.frontend.configuration.WeatherAppFrontendConfiguration" target="edu.glyndwr.weatherapp.frontend.model.City" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;City&gt;"/>
+    <UseRelation source="edu.glyndwr.weatherapp.frontend.configuration.WeatherAppFrontendConfiguration" target="edu.glyndwr.weatherapp.frontend.model.City" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="weatherAppFrontendController" source="edu.glyndwr.weatherapp.WeatherappApplication" target="edu.glyndwr.weatherapp.frontend.controller.WeatherAppFrontendController" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.weatherapp.frontend.factories.WeatherServiceFrontendUIFactory" target="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.WeatherData" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.weatherapp.frontend.factories.WeatherServiceFrontendUIFactory" target="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.Forecast" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.Forecast" target="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.WeatherData" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="entries" source="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.Forecast" target="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.WeatherData" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;WeatherData&gt;"/>
+    <IsRelation name="is" source="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.WeatherData" target="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.AbstractWeatherData"/>
+    <UseRelation source="edu.glyndwr.weatherapp.frontend.factories.WeatherDataDisplayViewFactory" target="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.WeatherData" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.weatherapp.backend.weatherservice.controller.WeatherServiceController" target="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.Forecast" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="openWeatherMapService" source="edu.glyndwr.weatherapp.backend.weatherservice.controller.WeatherServiceController" target="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.OpenWeatherMapService" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="OpenWeatherMapService"/>
+    <UseRelation source="edu.glyndwr.weatherapp.frontend.factories.CitySelectViewFactory" target="edu.glyndwr.weatherapp.frontend.controller.WeatherAppFrontendController" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.weatherapp.backend.weatherservice.controller.WeatherServiceController" target="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.WeatherToday" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cityBox" source="edu.glyndwr.weatherapp.frontend.controller.WeatherAppFrontendController" target="edu.glyndwr.weatherapp.frontend.model.City" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="weatherServiceFrontendUIFactory" source="edu.glyndwr.weatherapp.frontend.controller.WeatherAppFrontendController" target="edu.glyndwr.weatherapp.frontend.factories.WeatherServiceFrontendUIFactory" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="weatherServiceController" source="edu.glyndwr.weatherapp.frontend.controller.WeatherAppFrontendController" target="edu.glyndwr.weatherapp.backend.weatherservice.controller.WeatherServiceController" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="weatherDataDisplayViewFactory" source="edu.glyndwr.weatherapp.frontend.factories.WeatherServiceFrontendUIFactory" target="edu.glyndwr.weatherapp.frontend.factories.WeatherDataDisplayViewFactory" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="citySelectViewFactory" source="edu.glyndwr.weatherapp.frontend.factories.WeatherServiceFrontendUIFactory" target="edu.glyndwr.weatherapp.frontend.factories.CitySelectViewFactory" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.OpenWeatherMapService" target="edu.glyndwr.weatherapp.backend.weatherservice.openweathermaps.integration.WeatherToday" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.weatherapp.frontend.factories.WeatherServiceFrontendUIFactory" target="edu.glyndwr.weatherapp.frontend.controller.WeatherAppFrontendController" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.weatherapp.frontend.controller.WeatherAppFrontendController" target="edu.glyndwr.weatherapp.frontend.model.City" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

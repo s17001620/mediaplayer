@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="mediaplayer">
+  <ClassDiagramComponents>
+    <Class name="MediaPlayerApiConfiguration" package="edu.glyndwr.mediaplayer.backend.mediaservice.integration.configuration" visibility="public" xPosition="231.0" yPosition="843.0">
+      <Fields>
+        <Field name="key" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="YouTubeIntegrationController" package="edu.glyndwr.mediaplayer.backend.mediaservice.integration.controller" visibility="public" xPosition="687.0" yPosition="374.0">
+      <Fields>
+        <Field name="youtubeService" type="YouTubeService" visibility="private"/>
+        <Field name="youtubeSearchCriteria" type="YouTubeSearchQuery" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initializeController" returnType="void" visibility="private"/>
+        <Method name="loadVideosbySearchQuery" returnType="List&lt;YouTubeVideo&gt;" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="YouTubeSearchQuery" package="edu.glyndwr.mediaplayer.backend.mediaservice.integration.models" visibility="public" xPosition="468.0" yPosition="412.0">
+      <Fields>
+        <Field name="queryTerm" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="YouTubeVideo" package="edu.glyndwr.mediaplayer.backend.mediaservice.integration.models" visibility="public" xPosition="1121.0" yPosition="743.0">
+      <Fields>
+        <Field name="id" type="String" visibility="private"/>
+        <Field name="categoryId" type="String" visibility="private"/>
+        <Field name="title" type="String" visibility="private"/>
+        <Field name="url" type="String" visibility="private"/>
+        <Field name="thumbnailUrl" type="String" visibility="private"/>
+        <Field name="publishDate" type="String" visibility="private"/>
+        <Field name="description" type="String" visibility="private"/>
+        <Field name="category" type="String" visibility="private"/>
+        <Field name="EMBED_PREFIX" type="String" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="EMBED_SUFFIX" type="String" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="categories" type="HashMap&lt;String, String&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getCategoryAsString" returnType="String" visibility="public"/>
+        <Method name="getEmbedCode" returnType="String" visibility="public"/>
+        <Method name="initializeCategories" returnType="void" visibility="private"/>
+      </Methods>
+    </Class>
+    <Class name="YouTubeService" package="edu.glyndwr.mediaplayer.backend.mediaservice.integration.service" visibility="public" xPosition="481.0" yPosition="729.0">
+      <Fields>
+        <Field name="apiConfiguration" type="MediaPlayerApiConfiguration" visibility="private"/>
+        <Field name="MAX_SEARCH_RESULTS" type="long" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="BASE_URL" type="String" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="VIDEO_TYPE" type="String" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="VIDEO_SEARCH_LIST" type="String" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="VIDEO_CATEGORY_SEARCH_LIST" type="String" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="VIDEO_SEARCH_FIELDS" type="String" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="VIDEO_SEARCH_DATE_FORMAT" type="String" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="VIDEO_APPLICATION_NAME" type="String" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="videos" type="List&lt;YouTubeVideo&gt;" visibility="package"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="fetchVideosByQuery" returnType="List&lt;YouTubeVideo&gt;" visibility="public">
+          <Argument type="String" name="queryTerm"/>
+        </Method>
+        <Method name="getYouTube" returnType="YouTube" visibility="private"/>
+        <Method name="buildVideoUrl" returnType="String" visibility="private">
+          <Argument type="String" name="videoId"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="MediaplayerFrontendController" package="edu.glyndwr.mediaplayer.frontend.controller" visibility="public" xPosition="1141.0" yPosition="262.0">
+      <Fields>
+        <Field name="youTubeIntegrationController" type="YouTubeIntegrationController" visibility="private"/>
+        <Field name="uiFactory" type="MediaPlayerUIFactory" visibility="private"/>
+        <Field name="player" type="WebView" visibility="private"/>
+        <Field name="searchField" type="TextField" visibility="private"/>
+        <Field name="searchButton" type="Button" visibility="private"/>
+        <Field name="primaryStage" type="Stage" visibility="private"/>
+        <Field name="resultPane" type="GridPane" visibility="private"/>
+        <Field name="videos" type="ArrayList&lt;YouTubeVideo&gt;" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="initializeStage" returnType="void" visibility="public">
+          <Argument type="Stage" name="primaryStage"/>
+        </Method>
+        <Method name="loadVideos" returnType="void" visibility="public">
+          <Argument type="String" name="query"/>
+        </Method>
+        <Method name="playVideo" returnType="void" visibility="public">
+          <Argument type="YouTubeVideo" name="video"/>
+        </Method>
+        <Method name="initializeFields" returnType="void" visibility="private">
+          <Argument type="Stage" name="primaryStage1"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="MediaPlayerUIFactory" package="edu.glyndwr.mediaplayer.frontend.factories" visibility="public" xPosition="1736.0" yPosition="514.0">
+      <Fields>
+        <Field name="playerPaneFactory" type="PlayerPaneFactory" visibility="private"/>
+        <Field name="resultListFactory" type="ResultListFactory" visibility="private"/>
+        <Field name="controller" type="MediaplayerFrontendController" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="buildUI" returnType="Stage" visibility="public">
+          <Argument type="MediaplayerFrontendController" name="controller"/>
+        </Method>
+        <Method name="rebuildResultPane" returnType="void" visibility="public"/>
+        <Method name="rebuildPlayerPane" returnType="void" visibility="public">
+          <Argument type="YouTubeVideo" name="video"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="PlayerPaneFactory" package="edu.glyndwr.mediaplayer.frontend.factories" visibility="public" xPosition="1537.0" yPosition="68.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="buildSearchBarPane" returnType="GridPane" visibility="private">
+          <Argument type="MediaplayerFrontendController" name="controller"/>
+        </Method>
+        <Method name="buildPlayerPane" returnType="GridPane" visibility="public">
+          <Argument type="MediaplayerFrontendController" name="controller"/>
+          <Argument type="ScrollPane" name="resultpane"/>
+        </Method>
+        <Method name="buildTitlePane" returnType="void" visibility="public">
+          <Argument type="MediaplayerFrontendController" name="controller"/>
+          <Argument type="YouTubeVideo" name="video"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ResultListFactory" package="edu.glyndwr.mediaplayer.frontend.factories" visibility="public" xPosition="1581.0" yPosition="881.0">
+      <Fields>
+        <Field name="controller" type="MediaplayerFrontendController" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="buildResultScrollPane" returnType="ScrollPane" visibility="public">
+          <Argument type="MediaplayerFrontendController" name="controller"/>
+        </Method>
+        <Method name="buildSingleVideoResultPane" returnType="GridPane" visibility="public">
+          <Argument type="YouTubeVideo" name="video"/>
+        </Method>
+        <Method name="rebuildResultPane" returnType="void" visibility="public"/>
+        <Method name="breakStringForVideoLabel" returnType="String" visibility="public">
+          <Argument type="String" name="text"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="MediaplayerApplication" package="edu.glyndwr.mediaplayer" visibility="public" xPosition="899.0" yPosition="11.0">
+      <Fields>
+        <Field name="context" type="ConfigurableApplicationContext" visibility="private"/>
+        <Field name="mediaplayerFrontendController" type="MediaplayerFrontendController" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+        <Method name="start" returnType="void" visibility="public">
+          <Argument type="Stage" name="primaryStage"/>
+        </Method>
+        <Method name="init" returnType="void" visibility="public"/>
+        <Method name="stop" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="controller" source="edu.glyndwr.mediaplayer.frontend.factories.MediaPlayerUIFactory" target="edu.glyndwr.mediaplayer.frontend.controller.MediaplayerFrontendController" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.mediaplayer.frontend.factories.MediaPlayerUIFactory" target="edu.glyndwr.mediaplayer.backend.mediaservice.integration.models.YouTubeVideo" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mediaplayerFrontendController" source="edu.glyndwr.mediaplayer.MediaplayerApplication" target="edu.glyndwr.mediaplayer.frontend.controller.MediaplayerFrontendController" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="videos" source="edu.glyndwr.mediaplayer.backend.mediaservice.integration.service.YouTubeService" target="edu.glyndwr.mediaplayer.backend.mediaservice.integration.models.YouTubeVideo" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;YouTubeVideo&gt;"/>
+    <UseRelation source="edu.glyndwr.mediaplayer.frontend.factories.PlayerPaneFactory" target="edu.glyndwr.mediaplayer.frontend.controller.MediaplayerFrontendController" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.mediaplayer.frontend.factories.MediaPlayerUIFactory" target="edu.glyndwr.mediaplayer.frontend.controller.MediaplayerFrontendController" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.mediaplayer.frontend.controller.MediaplayerFrontendController" target="edu.glyndwr.mediaplayer.backend.mediaservice.integration.models.YouTubeVideo" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.mediaplayer.backend.mediaservice.integration.service.YouTubeService" target="edu.glyndwr.mediaplayer.backend.mediaservice.integration.models.YouTubeVideo" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.mediaplayer.backend.mediaservice.integration.controller.YouTubeIntegrationController" target="edu.glyndwr.mediaplayer.backend.mediaservice.integration.models.YouTubeVideo" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="controller" source="edu.glyndwr.mediaplayer.frontend.factories.ResultListFactory" target="edu.glyndwr.mediaplayer.frontend.controller.MediaplayerFrontendController" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="youtubeSearchCriteria" source="edu.glyndwr.mediaplayer.backend.mediaservice.integration.controller.YouTubeIntegrationController" target="edu.glyndwr.mediaplayer.backend.mediaservice.integration.models.YouTubeSearchQuery" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="youtubeService" source="edu.glyndwr.mediaplayer.backend.mediaservice.integration.controller.YouTubeIntegrationController" target="edu.glyndwr.mediaplayer.backend.mediaservice.integration.service.YouTubeService" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="resultListFactory" source="edu.glyndwr.mediaplayer.frontend.factories.MediaPlayerUIFactory" target="edu.glyndwr.mediaplayer.frontend.factories.ResultListFactory" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ResultListFactory"/>
+    <UseRelation source="edu.glyndwr.mediaplayer.frontend.factories.ResultListFactory" target="edu.glyndwr.mediaplayer.backend.mediaservice.integration.models.YouTubeVideo" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="uiFactory" source="edu.glyndwr.mediaplayer.frontend.controller.MediaplayerFrontendController" target="edu.glyndwr.mediaplayer.frontend.factories.MediaPlayerUIFactory" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="playerPaneFactory" source="edu.glyndwr.mediaplayer.frontend.factories.MediaPlayerUIFactory" target="edu.glyndwr.mediaplayer.frontend.factories.PlayerPaneFactory" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="videos" source="edu.glyndwr.mediaplayer.frontend.controller.MediaplayerFrontendController" target="edu.glyndwr.mediaplayer.backend.mediaservice.integration.models.YouTubeVideo" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;YouTubeVideo&gt;"/>
+    <HasRelation name="apiConfiguration" source="edu.glyndwr.mediaplayer.backend.mediaservice.integration.service.YouTubeService" target="edu.glyndwr.mediaplayer.backend.mediaservice.integration.configuration.MediaPlayerApiConfiguration" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="youTubeIntegrationController" source="edu.glyndwr.mediaplayer.frontend.controller.MediaplayerFrontendController" target="edu.glyndwr.mediaplayer.backend.mediaservice.integration.controller.YouTubeIntegrationController" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.mediaplayer.frontend.factories.ResultListFactory" target="edu.glyndwr.mediaplayer.frontend.controller.MediaplayerFrontendController" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

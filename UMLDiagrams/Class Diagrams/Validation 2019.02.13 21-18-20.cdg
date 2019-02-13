@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Validation">
+  <ClassDiagramComponents>
+    <Class name="UniversityRecord" package="edu.glyndwr.validator.backend.model.entities" visibility="public" xPosition="785.0" yPosition="263.0">
+      <Fields>
+        <Field name="studentID" type="String" visibility="private"/>
+        <Field name="computingModuleCode" type="String" visibility="private"/>
+        <Field name="plasCochCampusRoomNumber" type="String" visibility="private"/>
+        <Field name="wGUemailAddress" type="String" visibility="private"/>
+        <Field name="uKPostcode" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="studentID"/>
+          <Argument type="String" name="computingModuleCode"/>
+          <Argument type="String" name="plasCochCampusRoomNumber"/>
+          <Argument type="String" name="wGUemailAddress"/>
+          <Argument type="String" name="uKPostcode"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="ValidatorAppConfiguration" package="edu.glyndwr.validator.configuration" visibility="public" xPosition="1506.0" yPosition="636.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="ValidatorViewController" package="edu.glyndwr.validator.frontend.controller" visibility="public" xPosition="906.0" yPosition="825.0">
+      <Fields>
+        <Field name="universityRecordTable" type="TableView&lt;UniversityRecord&gt;" visibility="private"/>
+        <Field name="studentIDField" type="TextField" visibility="private"/>
+        <Field name="computingModuleCodeField" type="TextField" visibility="private"/>
+        <Field name="plasCochCampusRoomNumberField" type="TextField" visibility="private"/>
+        <Field name="wGUemailAddressField" type="TextField" visibility="private"/>
+        <Field name="uKPostcodeField" type="TextField" visibility="private"/>
+        <Field name="studentIDFieldWrong" type="Label" visibility="private"/>
+        <Field name="computingModuleCodeFieldWrong" type="Label" visibility="private"/>
+        <Field name="plasCochCampusRoomNumberFieldWrong" type="Label" visibility="private"/>
+        <Field name="wGUemailAddressFieldWrong" type="Label" visibility="private"/>
+        <Field name="uKPostcodeFieldWrong" type="Label" visibility="private"/>
+        <Field name="studentIDValidator" type="StudentIDValidator" visibility="private"/>
+        <Field name="computingModuleCodeValidator" type="ComputingModuleCodeValidator" visibility="private"/>
+        <Field name="plasCochCampusRoomNumberValidator" type="PlasCochCampusRoomNumberValidator" visibility="private"/>
+        <Field name="wGUEmailAddressValidator" type="WGUEmailAddressValidator" visibility="private"/>
+        <Field name="uKPostCodeValidator" type="UKPostCodeValidator" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="initializeStage" returnType="void" visibility="public">
+          <Argument type="Stage" name="primaryStage"/>
+        </Method>
+        <Method name="initializeFields" returnType="void" visibility="private"/>
+        <Method name="deleteRecord" returnType="void" visibility="public"/>
+        <Method name="addRecord" returnType="void" visibility="public"/>
+        <Method name="SetFieldStatus" returnType="void" visibility="private">
+          <Argument type="Boolean" name="isInputValid"/>
+          <Argument type="Boolean" name="isStudentIDValid"/>
+          <Argument type="Boolean" name="isComputingModuleCodeFieldValid"/>
+          <Argument type="Boolean" name="isPlasCochCampusRoomNumberFieldValid"/>
+          <Argument type="Boolean" name="iswGUemailAddressFieldValid"/>
+          <Argument type="Boolean" name="isUKPostcodeFieldTextValid"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="FrontendStageFactory" package="edu.glyndwr.validator.frontend.factories" visibility="public" xPosition="2613.0" yPosition="320.0">
+      <Fields>
+        <Field name="universityRecordTableViewFactory" type="UniversityRecordTableViewFactory" visibility="private"/>
+        <Field name="universityRecordNewDataPaneFactory" type="UniversityRecordNewDataPaneFactory" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="buildFrontendUI" returnType="Stage" visibility="public">
+          <Argument type="ValidatorViewController" name="controller"/>
+          <Argument type="Stage" name="stage"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="UniversityRecordNewDataPaneFactory" package="edu.glyndwr.validator.frontend.factories" visibility="public" xPosition="2678.0" yPosition="686.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="buildNewUniversityRecordDataPane" returnType="GridPane" visibility="public">
+          <Argument type="ValidatorViewController" name="controller"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="UniversityRecordTableViewFactory" package="edu.glyndwr.validator.frontend.factories" visibility="public" xPosition="1854.0" yPosition="263.0">
+      <Fields>
+        <Field name="universityRecordList" type="ObservableList&lt;UniversityRecord&gt;" visibility="package"/>
+        <Field name="controller" type="ValidatorViewController" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getNewTable" returnType="TableView&lt;UniversityRecord&gt;" visibility="public"/>
+        <Method name="getStudentIDColumn" returnType="TableColumn&lt;UniversityRecord, String&gt;" visibility="public"/>
+        <Method name="getComputingModuleCodeColumn" returnType="TableColumn&lt;UniversityRecord, String&gt;" visibility="public"/>
+        <Method name="getPlasCochCampusRoomNumberColumn" returnType="TableColumn&lt;UniversityRecord, String&gt;" visibility="public"/>
+        <Method name="getWGUemailAddressColumn" returnType="TableColumn&lt;UniversityRecord, String&gt;" visibility="public"/>
+        <Method name="getUKPostcodeColumn" returnType="TableColumn&lt;UniversityRecord, String&gt;" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="ComputingModuleCodeValidator" package="edu.glyndwr.validator.frontend.strategies.validation.implementations" visibility="public" xPosition="563.0" yPosition="723.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="validateInput" returnType="Boolean" visibility="public">
+          <Argument type="String" name="input"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="PlasCochCampusRoomNumberValidator" package="edu.glyndwr.validator.frontend.strategies.validation.implementations" visibility="public" xPosition="563.0" yPosition="506.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="validateInput" returnType="Boolean" visibility="public">
+          <Argument type="String" name="input"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="StudentIDValidator" package="edu.glyndwr.validator.frontend.strategies.validation.implementations" visibility="public" xPosition="80.0" yPosition="1278.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="validateInput" returnType="Boolean" visibility="public">
+          <Argument type="String" name="input"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="UKPostCodeValidator" package="edu.glyndwr.validator.frontend.strategies.validation.implementations" visibility="public" xPosition="276.0" yPosition="1089.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="validateInput" returnType="Boolean" visibility="public">
+          <Argument type="String" name="input"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="WGUEmailAddressValidator" package="edu.glyndwr.validator.frontend.strategies.validation.implementations" visibility="public" xPosition="432.0" yPosition="913.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="validateInput" returnType="Boolean" visibility="public">
+          <Argument type="String" name="input"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="InputValidator" package="edu.glyndwr.validator.frontend.strategies.validation" visibility="public" isAbstract="true" xPosition="35.0" yPosition="517.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="validateInput" returnType="Boolean" visibility="public">
+          <Argument type="String" name="input"/>
+        </Method>
+        <Method name="isNotNullOrNotEmptyOrNotBlank" returnType="Boolean" visibility="protected">
+          <Argument type="String" name="input"/>
+        </Method>
+        <Method name="isValidEmailAddress" returnType="Boolean" visibility="protected">
+          <Argument type="String" name="input"/>
+          <Argument type="String" name="domain"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ValidatorApplication" package="edu.glyndwr.validator" visibility="public" xPosition="2512.0" yPosition="1042.0">
+      <Fields>
+        <Field name="context" type="ConfigurableApplicationContext" visibility="private"/>
+        <Field name="validatorViewController" type="ValidatorViewController" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+        <Method name="start" returnType="void" visibility="public">
+          <Argument type="Stage" name="primaryStage"/>
+        </Method>
+        <Method name="init" returnType="void" visibility="public"/>
+        <Method name="stop" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <IsRelation name="is" source="edu.glyndwr.validator.frontend.strategies.validation.implementations.UKPostCodeValidator" target="edu.glyndwr.validator.frontend.strategies.validation.InputValidator"/>
+    <HasRelation name="controller" source="edu.glyndwr.validator.frontend.factories.UniversityRecordTableViewFactory" target="edu.glyndwr.validator.frontend.controller.ValidatorViewController" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="universityRecordTableViewFactory" source="edu.glyndwr.validator.frontend.factories.FrontendStageFactory" target="edu.glyndwr.validator.frontend.factories.UniversityRecordTableViewFactory" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.validator.frontend.factories.FrontendStageFactory" target="edu.glyndwr.validator.frontend.controller.ValidatorViewController" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="universityRecordTable" source="edu.glyndwr.validator.frontend.controller.ValidatorViewController" target="edu.glyndwr.validator.backend.model.entities.UniversityRecord" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="computingModuleCodeValidator" source="edu.glyndwr.validator.frontend.controller.ValidatorViewController" target="edu.glyndwr.validator.frontend.strategies.validation.implementations.ComputingModuleCodeValidator" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="wGUEmailAddressValidator" source="edu.glyndwr.validator.frontend.controller.ValidatorViewController" target="edu.glyndwr.validator.frontend.strategies.validation.implementations.WGUEmailAddressValidator" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="universityRecordList" source="edu.glyndwr.validator.frontend.factories.UniversityRecordTableViewFactory" target="edu.glyndwr.validator.backend.model.entities.UniversityRecord" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ObservableList&lt;UniversityRecord&gt;"/>
+    <HasRelation name="uKPostCodeValidator" source="edu.glyndwr.validator.frontend.controller.ValidatorViewController" target="edu.glyndwr.validator.frontend.strategies.validation.implementations.UKPostCodeValidator" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="edu.glyndwr.validator.frontend.strategies.validation.implementations.WGUEmailAddressValidator" target="edu.glyndwr.validator.frontend.strategies.validation.InputValidator"/>
+    <HasRelation name="plasCochCampusRoomNumberValidator" source="edu.glyndwr.validator.frontend.controller.ValidatorViewController" target="edu.glyndwr.validator.frontend.strategies.validation.implementations.PlasCochCampusRoomNumberValidator" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.validator.frontend.factories.UniversityRecordNewDataPaneFactory" target="edu.glyndwr.validator.frontend.controller.ValidatorViewController" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="edu.glyndwr.validator.frontend.factories.UniversityRecordTableViewFactory" target="edu.glyndwr.validator.backend.model.entities.UniversityRecord" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="universityRecordNewDataPaneFactory" source="edu.glyndwr.validator.frontend.factories.FrontendStageFactory" target="edu.glyndwr.validator.frontend.factories.UniversityRecordNewDataPaneFactory" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="studentIDValidator" source="edu.glyndwr.validator.frontend.controller.ValidatorViewController" target="edu.glyndwr.validator.frontend.strategies.validation.implementations.StudentIDValidator" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="edu.glyndwr.validator.frontend.strategies.validation.implementations.PlasCochCampusRoomNumberValidator" target="edu.glyndwr.validator.frontend.strategies.validation.InputValidator"/>
+    <HasRelation name="validatorViewController" source="edu.glyndwr.validator.ValidatorApplication" target="edu.glyndwr.validator.frontend.controller.ValidatorViewController" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="edu.glyndwr.validator.frontend.strategies.validation.implementations.ComputingModuleCodeValidator" target="edu.glyndwr.validator.frontend.strategies.validation.InputValidator"/>
+    <IsRelation name="is" source="edu.glyndwr.validator.frontend.strategies.validation.implementations.StudentIDValidator" target="edu.glyndwr.validator.frontend.strategies.validation.InputValidator"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
