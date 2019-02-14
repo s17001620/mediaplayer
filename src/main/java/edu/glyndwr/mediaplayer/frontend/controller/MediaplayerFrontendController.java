@@ -4,6 +4,7 @@ import edu.glyndwr.mediaplayer.backend.mediaservice.integration.controller.YouTu
 import edu.glyndwr.mediaplayer.backend.mediaservice.integration.models.YouTubeSearchQuery;
 import edu.glyndwr.mediaplayer.backend.mediaservice.integration.models.YouTubeVideo;
 import edu.glyndwr.mediaplayer.frontend.factories.MediaPlayerUIFactory;
+import edu.glyndwr.mediaplayer.frontend.model.MediaplayerFrontendModel;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -39,12 +40,15 @@ public class MediaplayerFrontendController {
     private YouTubeIntegrationController youTubeIntegrationController;
     @Autowired
     private MediaPlayerUIFactory uiFactory;
+    @Autowired
+    private MediaplayerFrontendModel mediaplayerFrontendModel;
+    
     private WebView player;
     private TextField searchField;
     private Button searchButton;
     private Stage primaryStage;
     private GridPane resultPane;
-    private ArrayList<YouTubeVideo> videos = new ArrayList<>();
+    
 
     public void initializeStage(Stage primaryStage) {
         initializeFields(primaryStage);
@@ -72,8 +76,8 @@ public class MediaplayerFrontendController {
         youTubeIntegrationController.getYoutubeSearchCriteria().setQueryTerm(query);
         ArrayList<YouTubeVideo> tempVideos = new ArrayList<>();
         tempVideos.addAll(youTubeIntegrationController.loadVideosbySearchQuery());
-        tempVideos.removeAll(videos);
-        videos = tempVideos;
+        tempVideos.removeAll(mediaplayerFrontendModel.getVideos());
+        mediaplayerFrontendModel.setVideos(tempVideos);
         uiFactory.rebuildResultPane();
     }
 

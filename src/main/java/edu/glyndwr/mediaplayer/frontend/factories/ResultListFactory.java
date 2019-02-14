@@ -37,7 +37,7 @@ public class ResultListFactory {
         pane.setPrefHeight(360);
         pane.setPrefWidth(640);
         int count = 0;
-        for (YouTubeVideo video : controller.getVideos()) {
+        for (YouTubeVideo video : controller.getMediaplayerFrontendModel().getVideos()) {
             pane.addRow(count++, buildSingleVideoResultPane(video));
         }
         scroll.setContent(pane);
@@ -79,7 +79,7 @@ public class ResultListFactory {
         pane.setVgap(5); 
         pane.setPadding(new Insets(5, 5, 5, 5));  
         int count = 0;
-        for (YouTubeVideo video : controller.getVideos()) {
+        for (YouTubeVideo video : controller.getMediaplayerFrontendModel().getVideos()) {
             pane.addRow(count++, buildSingleVideoResultPane(video));
         }
         controller.setResultPane(pane);
